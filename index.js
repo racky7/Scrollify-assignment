@@ -19,6 +19,10 @@ require('./models/user')
 
 app.use(express.json())
 
+//routes
+const authRoute = require('./routes/auth')
+app.use('/api/auth', authRoute)
+
 app.listen(PORT || process.env.PORT, () => {
     console.log('server is running on port: ', PORT)
 })
