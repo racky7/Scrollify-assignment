@@ -74,7 +74,7 @@ router.post('/signin', (req,res)=>{
                     res.status(200).json({message:"sucessfully signed in", token, user:{_id, name, email}})
                 }
                 else{
-                    res.status(422).json({message:"invalid password"})
+                    res.status(422).json({error:"invalid password"})
                 }
               })
               .catch(err=>{

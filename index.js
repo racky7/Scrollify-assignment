@@ -1,7 +1,13 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const PORT = 3000
+const PORT = 4000
+const cors = require('cors')
+
+app.use(cors({
+  origin:'*'
+}))
+
 require('dotenv').config()
 
 mongoose.connect(process.env.MONGO_URI, {
