@@ -15,6 +15,7 @@ const SinglePost = ({name, caption, postImage}) => {
             }}
         >
             <p style={{ fontWeight: 600, fontSize: 18 }}>{name}</p>
+            <p style={{ fontWeight: 400, fontSize: 16 }}>{caption}</p>
             <div
                 className='mb-3'
                 style={{

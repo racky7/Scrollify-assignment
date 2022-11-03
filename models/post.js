@@ -9,6 +9,10 @@ const reqString = {
 const postSchema = new mongoose.Schema({
     caption:reqString,
     image:reqString,
+    likes:[{
+      type:ObjectId,
+      ref:"User"
+    }],
     postedBy:{
       type:ObjectId,
       ref:"User"
