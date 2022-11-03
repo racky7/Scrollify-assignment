@@ -22,6 +22,7 @@ mongoose.connection.on('error', () => {
 })
 
 require('./models/user')
+require('./models/post')
 
 app.use(express.json())
 
@@ -29,7 +30,7 @@ app.use(express.json())
 const authRoute = require('./routes/auth')
 const postRoute = require('./routes/post')
 app.use('/api/auth', authRoute)
-app.use('/api/posts', postRoute)
+app.use('/api/post', postRoute)
 
 app.listen(PORT || process.env.PORT, () => {
     console.log('server is running on port: ', PORT)
