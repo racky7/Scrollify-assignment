@@ -79,7 +79,7 @@ const CreatePost = () => {
                     border: '1px solid black'
                 }}
             >
-                <img src={image} alt="new post" />
+                <img width="400px" height="360px" src={image} alt="new post" />
             </div>}
             {!image ? <div className="d-grid gap-2 w-50">
                 <input
