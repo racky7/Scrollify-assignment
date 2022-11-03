@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import axios from 'axios'
 const CreatePost = () => {
     const [image, setImage] = useState()
     const [caption, setCaption] = useState()
@@ -13,11 +13,49 @@ const CreatePost = () => {
         }
     }
 
-    const submitPost = () =>{
-        if (!finalImage || !caption){
+    const submitPost = () => {
+        console.log(caption)
+        if (!finalImage || !caption) {
             alert('Write some caption please...')
             return
         }
+        
+        //two step upload
+        //1. upload image to cloudinary, get image url in response
+        //2. upload image to server
+
+        var data = new FormData();
+        data.append("file", finalImage);
+        data.append("upload_preset", 'iSocialMedia');
+        data.append("cloud_name", 'digf8dtoq');
+
+        axios
+            .post('https://api.cloudinary.com/v1_1/digf8dtoq/image/upload', data)
+            .then(res =>{
+                console.log(res.data.url)
+                
+                axios
+                    .post('https://4000-racky7-scrollifyassignm-gzo3u46h5fe.ws-us74.gitpod.io/api/post/createpost', 
+                    {caption, image:res.data.url},
+                    {
+                        headers: {
+                            'authorization': 'Bearer '+localStorage.getItem("token")
+                        } 
+                    }
+                    )
+                    .then(response => {
+                        console.log(response.data.post)
+                        setImage(null)
+                        setCaption(null)
+                    })
+                    .catch(err=>{
+                        console.log(err)
+                    })
+
+            })
+            .catch(err =>{
+                console.log(err)
+            })
 
     }
 
@@ -41,7 +79,7 @@ const CreatePost = () => {
                     border: '1px solid black'
                 }}
             >
-                <img src={image} alt="new-post-image" />
+                <img src={image} alt="new post" />
             </div>}
             {!image ? <div className="d-grid gap-2 w-50">
                 <input
@@ -55,26 +93,26 @@ const CreatePost = () => {
                     htmlFor="upload-btn"
 
                 >Upload image</label>{' '}
-            </div> : <div><div 
-            className='m-2'
-            style={{width:'400px'}}
+            </div> : <div><div
+                className='m-2'
+                style={{ width: '400px' }}
             >
-                <textarea 
-                class="form-control"
-                rows="3"
-                placeholder='Write a caption...'
-                onChange={(e)=>setCaption(e.target.value)}
+                <textarea
+                    class="form-control"
+                    rows="3"
+                    placeholder='Write a caption...'
+                    onChange={(e) => setCaption(e.target.value)}
                 ></textarea>
             </div>
-            
-            <div onClick={submitPost} className='btn btn-primary'>
-                Share your post
-            </div>
+
+                <div onClick={submitPost} className='btn btn-primary'>
+                    Share your post
+                </div>
 
             </div>
             }
 
-            
+
 
         </div>
     )
