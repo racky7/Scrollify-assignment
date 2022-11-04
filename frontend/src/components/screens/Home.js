@@ -52,8 +52,8 @@ const Home = () => {
           allposts.map((post, ind)=>{
             var liked = false;
             //check post liked by user
-            post.likes.find(id=>id==state._id)?liked=true:liked=false
-            return <SinglePost name={post.postedBy.name} caption={post.caption} postImage={post.image} totalLikes={post.likes.length} key={post._id} liked={liked} postId={post._id} />
+            post.likes.find(likedby=>likedby.userId==state._id)?liked=true:liked=false
+            return <SinglePost name={post.postedBy.name} caption={post.caption} postImage={post.image} totalLikes={post.likes.length} key={post._id} liked={liked} postId={post._id} likes={post.likes} />
           })
         
         :'Posts Loading...'}
