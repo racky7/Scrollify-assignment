@@ -6,7 +6,7 @@ const reqString = {
     required:true
 }
 
-const userLikes = new mongoose.Schema({
+const postLikes = new mongoose.Schema({
   userId:{
     type:ObjectId,
     ref:"User"
@@ -14,10 +14,16 @@ const userLikes = new mongoose.Schema({
   name:reqString
 })
 
+const postComments = new mongoose.Schema({
+    name:reqString,
+    comment:reqString
+})
+
 const postSchema = new mongoose.Schema({
     caption:reqString,
     image:reqString,
-    likes:[userLikes],
+    likes:[postLikes],
+    comments:[postComments],
     postedBy:{
       type:ObjectId,
       ref:"User"
