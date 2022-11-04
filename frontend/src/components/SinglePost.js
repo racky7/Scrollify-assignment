@@ -40,6 +40,7 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
             })
             .catch(err => {
                 console.log(err)
+                alert(err)
             })
     }
 
@@ -63,6 +64,7 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
             })
             .catch(err => {
                 console.log(err)
+                alert(err)
             })
     }
 
@@ -89,6 +91,7 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
             })
             .catch(err => {
                 console.log(err)
+                alert(err)
             })
 
         setComment('')
