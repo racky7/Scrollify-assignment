@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "../../styles/Auth.css"
 import { useAuthContext } from "../../context/AuthContext"
 import { Link, useNavigate } from 'react-router-dom'
-import axios from "axios";
+import axios from "../axios/axios.js";
 
 const Login = () => {
   const [email, setEmail] = useState("")
@@ -14,7 +14,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault()
     setError("")
-    axios.post('https://4000-racky7-scrollifyassignm-gzo3u46h5fe.ws-us74.gitpod.io/api/auth/signin', { email, password })
+    axios.post('/api/auth/signin', { email, password })
       .then(res => {
         console.log(res.data)
         localStorage.setItem("token", res.data.token)

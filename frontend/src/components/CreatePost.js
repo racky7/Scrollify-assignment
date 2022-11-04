@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import axios2 from "./axios/axios.js";
+
 const CreatePost = () => {
     const [image, setImage] = useState()
     const [caption, setCaption] = useState()
@@ -34,8 +36,8 @@ const CreatePost = () => {
             .then(res =>{
                 console.log(res.data.url)
                 
-                axios
-                    .post('https://4000-racky7-scrollifyassignm-gzo3u46h5fe.ws-us74.gitpod.io/api/post/createpost', 
+                axios2
+                    .post('/api/post/createpost', 
                     {caption, image:res.data.url},
                     {
                         headers: {

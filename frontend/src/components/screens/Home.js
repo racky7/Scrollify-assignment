@@ -3,7 +3,7 @@ import { useAuthContext } from "../../context/AuthContext"
 import { useNavigate } from 'react-router-dom'
 import CreatePost from '../CreatePost'
 import SinglePost from '../SinglePost'
-import axios from 'axios'
+import axios from "../axios/axios.js";
 
 const Home = () => {
   const { state } = useAuthContext()
@@ -18,7 +18,7 @@ const Home = () => {
   }
   useEffect(() => {
     axios
-      .get('https://4000-racky7-scrollifyassignm-gzo3u46h5fe.ws-us74.gitpod.io/api/post/allpost',
+      .get('/api/post/allpost',
         {
           headers: {
             'authorization': 'Bearer ' + localStorage.getItem("token")
@@ -53,7 +53,7 @@ const Home = () => {
             var liked = false;
             //check post liked by user
             post.likes.find(likedby=>likedby.userId==state._id)?liked=true:liked=false
-            return <SinglePost name={post.postedBy.name} caption={post.caption} postImage={post.image} totalLikes={post.likes.length} key={post._id} liked={liked} postId={post._id} likes={post.likes} />
+            return <SinglePost name={post.postedBy.name} caption={post.caption} postImage={post.image} totalLikes={post.likes.length} key={post._id} liked={liked} postId={post._id} likes={post.likes} currentUser={state.name} />
           })
         
         :'Posts Loading...'}

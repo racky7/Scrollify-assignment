@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import axios from "./axios/axios.js";
 import LikesModal from './LikesModal'
 
-const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes }) => {
+const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes, currentUser }) => {
     const [addComment, setAddComment] = useState(false)
     const [tempLike, setTemplike] = useState(0)
     const [userLiked, setUserliked] = useState(liked)
@@ -11,7 +11,7 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
     const handleLike = () => {
         
         axios
-            .put('https://4000-racky7-scrollifyassignm-gzo3u46h5fe.ws-us74.gitpod.io/api/post/like',
+            .put('/api/post/like',
                 { postId }
                 ,
                 {
@@ -22,6 +22,7 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
             )
             .then(response => {
                 console.log(response)
+                likes.push({name:currentUser})
                 setUserliked(true)
                 setTemplike(tempLike + 1)
 
@@ -33,7 +34,7 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
 
     const handleUnlike = () =>{
         axios
-            .put('https://4000-racky7-scrollifyassignm-gzo3u46h5fe.ws-us74.gitpod.io/api/post/unlike',
+            .put('/api/post/unlike',
                 { postId }
                 ,
                 {
@@ -44,6 +45,8 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
             )
             .then(response => {
                 console.log(response)
+                likes.pop()
+                console.log(likes)
                 setUserliked(false)
                 setTemplike(tempLike - 1)
             })
@@ -79,7 +82,7 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
             <div style={{ display: 'flex' }}>
                 <div style={{ display: 'flex' }}>
                     
-                    {userLiked ? <div onClick={handleUnlike} className='btn text-primary' style={{ fontWeight: 600 }}>Unlike {totalLikes ? totalLikes + tempLike : 0}</div> : <div onClick={handleLike} className='btn text-primary'>Like {totalLikes ? totalLikes + tempLike : 0}</div>}
+                    {userLiked ? <div onClick={handleUnlike} className='btn text-primary' style={{ fontWeight: 600 }}>Unlike {totalLikes ? totalLikes + tempLike : tempLike}</div> : <div onClick={handleLike} className='btn text-primary'>Like {totalLikes ? totalLikes + tempLike : tempLike}</div>}
                 
                 </div> 
                     <div onClick={() => setAddComment(!addComment)} className='btn text-primary'>Comment</div> <div className='btn text-primary'>Share</div>

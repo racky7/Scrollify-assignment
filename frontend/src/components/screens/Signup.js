@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "../../styles/Auth.css"
 import { useAuthContext } from "../../context/AuthContext"
 import { Link, useNavigate } from 'react-router-dom'
-import axios from "axios";
+import axios from "../axios/axios.js";
 
 const Signup = () => {
   const [name, setName] = useState("")
@@ -15,7 +15,7 @@ const Signup = () => {
   const handleLogin = async (e) => {
     e.preventDefault()
     setError("")
-    axios.post('https://4000-racky7-scrollifyassignm-gzo3u46h5fe.ws-us74.gitpod.io/api/auth/signup', { name, email, password })
+    axios.post('/api/auth/signup', { name, email, password })
       .then(res => {
         console.log(res.data)
         navigate('/login')
