@@ -126,7 +126,7 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
             <div style={{ display: 'flex' }}>
                 <div style={{ display: 'flex' }}>
                     
-                    {userLiked ? <div onClick={handleUnlike} className='btn text-primary' style={{ fontWeight: 600 }}>Unlike {totalLikes ? totalLikes + tempLike : tempLike}</div> : <div onClick={handleLike} className='btn text-primary'>Like {totalLikes ? totalLikes + tempLike : tempLike}</div>}
+                    {userLiked ? <div onClick={handleUnlike} className='btn text-primary' style={{ fontWeight: 600 }}>Dislike </div> : <div onClick={handleLike} className='btn text-primary'>Like</div>}
                 
                 </div> 
                     <div onClick={() => setAddComment(!addComment)} className='btn text-primary'>Comment</div> <div onClick={() => setShareModal(true)} className='btn text-primary'>Share</div>

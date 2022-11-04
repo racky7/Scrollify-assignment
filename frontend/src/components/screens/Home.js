@@ -40,7 +40,7 @@ const Home = () => {
   }, [])
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxWidth:'500px', margin:'auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between!important', width:'500px', gap:'30px' }}>
         <h3>Hi, {state && state.name}</h3>
         <div className='btn btn-dark' onClick={handleLogout}>Logout</div>
