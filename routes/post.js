@@ -75,5 +75,23 @@ router.put("/like", requireLogin, (req, res)=>{
     })
   })
 
+  //comment api
+
+router.put("/comment", requireLogin, (req, res)=>{
+  const { postId, text } = req.body
+  Post.findByIdAndUpdate(postId, {
+    $push:{comments:{userId:req.user._id, name:req.user.name, text }}
+  }, {
+    new:true
+  }).exec((err,result)=>{
+    if(err){
+      return res.status(422).json({error:err})
+    }
+    else{
+      res.json(result)
+    }
+  })
+})
+
 
 module.exports = router
