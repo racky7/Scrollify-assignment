@@ -10,11 +10,13 @@ const ViewSharedPost = () => {
 
     useEffect(() => {
         console.log(postId);
+        document.title = 'Post by ';
         axios.get(`/api/post/${postId}`)
             .then(res =>{
                 setPost(res.data)
                 console.log(res.data)
                 setLoading(false)
+                document.title = 'Post by ' + res.data.postedBy.name;
             })
             .catch(err=>{
                 console.log(err)

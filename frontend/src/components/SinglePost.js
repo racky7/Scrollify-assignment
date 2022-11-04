@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from "./axios/axios.js";
 import LikesModal from './LikesModal'
 import CommentsModal from './CommentsModal.js';
+import ShareModal from './ShareModal.js';
 import moment from 'moment'
 
 const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes, currentUser, comments, postDate }) => {
@@ -10,6 +11,7 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
     const [userLiked, setUserliked] = useState(liked)
     const [likeModal, setLikeModal] = useState(false);
     const [commentModal, setCommentModal] = useState(false);
+    const [shareModal, setShareModal] = useState(false);
     const [comment, setComment] = useState(null)
     const [commentLength, setCommentLength] = useState(0)
 
@@ -127,7 +129,7 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
                     {userLiked ? <div onClick={handleUnlike} className='btn text-primary' style={{ fontWeight: 600 }}>Unlike {totalLikes ? totalLikes + tempLike : tempLike}</div> : <div onClick={handleLike} className='btn text-primary'>Like {totalLikes ? totalLikes + tempLike : tempLike}</div>}
                 
                 </div> 
-                    <div onClick={() => setAddComment(!addComment)} className='btn text-primary'>Comment</div> <div className='btn text-primary'>Share</div>
+                    <div onClick={() => setAddComment(!addComment)} className='btn text-primary'>Comment</div> <div onClick={() => setShareModal(true)} className='btn text-primary'>Share</div>
             </div>
             <p>Liked by <div onClick={() => setLikeModal(true)} className='btn text-primary'>{totalLikes + tempLike} users</div></p>
             <p className='mt-0'>View all <div onClick={() => setCommentModal(true)} className='btn text-primary'>{commentLength} comments</div></p>
@@ -154,6 +156,12 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
             show={commentModal}
             onHide={()=> setCommentModal(false)}
             comments={comments}
+            />
+
+            <ShareModal 
+            show={shareModal}
+            onHide={()=> setShareModal(false)}
+            sharelink = {window.location.origin+`/post/${postId}`}
             />
         </div>
     )

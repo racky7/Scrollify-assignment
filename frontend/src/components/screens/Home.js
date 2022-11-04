@@ -17,6 +17,7 @@ const Home = () => {
     navigate('/login')
   }
   useEffect(() => {
+    document.title = 'iSocialMedia';
     axios
       .get('/api/post/allpost',
         {
