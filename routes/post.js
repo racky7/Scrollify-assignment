@@ -46,7 +46,7 @@ router.post('/createpost', requireLogin, (req, res) => {
 //like api
 router.put("/like", requireLogin, (req, res)=>{
     Post.findByIdAndUpdate(req.body.postId, {
-      $push:{likes:req.user._id}
+      $push:{likes:{userId:req.user._id, name:req.user.name}}
     }, {
       new:true
     }).exec((err,result)=>{
@@ -62,7 +62,7 @@ router.put("/like", requireLogin, (req, res)=>{
 //unlike api
   router.put("/unlike", requireLogin, (req, res)=>{
     Post.findByIdAndUpdate(req.body.postId, {
-      $pull:{likes:req.user._id}
+      $pull:{likes:{userId:req.user._id, name:req.user.name}}
     }, {
       new:true
     }).exec((err,result)=>{

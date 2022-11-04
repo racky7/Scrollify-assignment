@@ -6,13 +6,18 @@ const reqString = {
     required:true
 }
 
+const userLikes = new mongoose.Schema({
+  userId:{
+    type:ObjectId,
+    ref:"User"
+  },
+  name:reqString
+})
+
 const postSchema = new mongoose.Schema({
     caption:reqString,
     image:reqString,
-    likes:[{
-      type:ObjectId,
-      ref:"User"
-    }],
+    likes:[userLikes],
     postedBy:{
       type:ObjectId,
       ref:"User"
