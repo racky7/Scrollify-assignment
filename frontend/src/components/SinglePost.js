@@ -1,12 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "./axios/axios.js";
 import LikesModal from './LikesModal'
+import CommentsModal from './CommentsModal.js';
+import moment from 'moment'
 
-const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes, currentUser }) => {
+const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes, currentUser, comments, postDate }) => {
     const [addComment, setAddComment] = useState(false)
     const [tempLike, setTemplike] = useState(0)
     const [userLiked, setUserliked] = useState(liked)
     const [likeModal, setLikeModal] = useState(false);
+    const [commentModal, setCommentModal] = useState(false);
+    const [comment, setComment] = useState(null)
+    const [commentLength, setCommentLength] = useState(0)
+
+    useEffect(() => {
+      setCommentLength(comments.length)
+    }, [])
+    
+
     
     const handleLike = () => {
         
@@ -55,11 +66,39 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
             })
     }
 
+    const handleComment = () => {
+        if(!comment){
+            alert('Please add a comment.')
+            return
+        }
+        axios
+            .put('/api/post/comment',
+            {postId, text:comment},
+            {
+                headers: {
+                    'authorization': 'Bearer ' + localStorage.getItem("token")
+                }
+            }
+            )
+            .then(response=>{
+                console.log(response)
+                setCommentLength(commentLength+1)
+                comments.push({name:currentUser, text:comment})
+                alert('Comment added successfully!')
+                
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        setComment('')
+    }
+
     return (
         <div className="card"
             style={{
                 margin: '30px auto',
-                minHeight: '500px',
+                minHeight: '450px',
                 minWidth: '500px',
                 padding: '20px',
                 textAlign: 'center',
@@ -67,7 +106,7 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
                 alignItems: 'center'
             }}
         >
-            <p style={{ fontWeight: 600, fontSize: 18 }}>{name}</p>
+            <div style={{display:'flex'}}><p style={{ fontWeight: 600, fontSize: 18 }}>{name + ' - '}</p> <span className="text-small">{ moment(postDate).fromNow()}</span></div>
             <p style={{ fontWeight: 400, fontSize: 16 }}>{caption}</p>
             <div
                 className='mb-3'
@@ -88,14 +127,17 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
                     <div onClick={() => setAddComment(!addComment)} className='btn text-primary'>Comment</div> <div className='btn text-primary'>Share</div>
             </div>
             <p>Liked by <div onClick={() => setLikeModal(true)} className='btn text-primary'>{totalLikes + tempLike} users</div></p>
+            <p className='mt-0'>View all <div onClick={() => setCommentModal(true)} className='btn text-primary'>{commentLength} comments</div></p>
             {addComment && <div style={{ display: 'flex', width: '400px', border: '1px solid lightgrey' }}>
                 <textarea
                     className="form-control"
                     rows="1"
                     placeholder='Add a comment...'
                     style={{ width: '340px' }}
+                    value={comment}
+                    onChange={(e)=>setComment(e.target.value)}
                 ></textarea>
-                <div className='btn text-primary'>Post</div>
+                <div onClick={handleComment} className='btn text-primary'>Post</div>
             </div>
             }
             
@@ -103,6 +145,12 @@ const SinglePost = ({ name, caption, postImage, totalLikes, liked, postId, likes
             show={likeModal}
             onHide={() => setLikeModal(false)}
             likes={likes}
+            />
+
+            <CommentsModal 
+            show={commentModal}
+            onHide={()=> setCommentModal(false)}
+            comments={comments}
             />
         </div>
     )

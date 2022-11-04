@@ -40,7 +40,7 @@ const Home = () => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-      <div style={{ display: 'flex', alignItems: 'space-between' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between!important', width:'500px', gap:'30px' }}>
         <h3>Hi, {state && state.name}</h3>
         <div className='btn btn-dark' onClick={handleLogout}>Logout</div>
       </div>
@@ -49,11 +49,11 @@ const Home = () => {
         <CreatePost />
         {!loading?
           allposts ? 
-          allposts.map((post, ind)=>{
+          allposts.reverse().map((post, ind)=>{
             var liked = false;
             //check post liked by user
             post.likes.find(likedby=>likedby.userId==state._id)?liked=true:liked=false
-            return <SinglePost name={post.postedBy.name} caption={post.caption} postImage={post.image} totalLikes={post.likes.length} key={post._id} liked={liked} postId={post._id} likes={post.likes} currentUser={state.name} />
+            return <SinglePost name={post.postedBy.name} caption={post.caption} postImage={post.image} totalLikes={post.likes.length} key={post._id} liked={liked} postId={post._id} likes={post.likes} currentUser={state.name} comments={post.comments} postDate={post.createdAt} />
           }) 
           :'Server error... Try Again'
           
