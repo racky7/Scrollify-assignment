@@ -8,7 +8,7 @@ import axios from "../axios/axios.js";
 const Home = () => {
   const { state } = useAuthContext()
   const navigate = useNavigate()
-  const [allposts, setAllpost] = useState({})
+  const [allposts, setAllpost] = useState()
   const [loading, setLoading] = useState(true)
 
 
@@ -48,13 +48,15 @@ const Home = () => {
       <div className='m-3'>
         <CreatePost />
         {!loading?
-        
+          allposts ? 
           allposts.map((post, ind)=>{
             var liked = false;
             //check post liked by user
             post.likes.find(likedby=>likedby.userId==state._id)?liked=true:liked=false
             return <SinglePost name={post.postedBy.name} caption={post.caption} postImage={post.image} totalLikes={post.likes.length} key={post._id} liked={liked} postId={post._id} likes={post.likes} currentUser={state.name} />
-          })
+          }) 
+          :'Server error... Try Again'
+          
         
         :'Posts Loading...'}
       </div>
