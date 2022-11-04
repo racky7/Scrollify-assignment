@@ -63,7 +63,7 @@ const Login = () => {
             {errMsg}
           </p>}
           <p className="forgot-password text-right">
-            Don't have an account? <Link to="/signup">Sign up</Link>
+            Don't have an account? <Link to="/signup">Login</Link>
           </p>
 
         </form>

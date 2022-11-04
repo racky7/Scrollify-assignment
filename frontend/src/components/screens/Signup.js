@@ -70,7 +70,7 @@ const Signup = () => {
             {errMsg}
           </p>}
           <p className="forgot-password text-right">
-            Already have an account? <Link to="/login">Log in</Link>
+            Already have an account? <Link to="/login">Signup</Link>
           </p>
 
         </form>
