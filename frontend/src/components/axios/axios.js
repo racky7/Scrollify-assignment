@@ -1,3 +1,3 @@
 import axios from 'axios';
-const instance = axios.create({baseURL: 'https://4000-racky7-scrollifyassignm-gzo3u46h5fe.ws-eu74.gitpod.io'});
+const instance = axios.create({baseURL: 'https://isocialmedia.herokuapp.com'});
 export default instance
