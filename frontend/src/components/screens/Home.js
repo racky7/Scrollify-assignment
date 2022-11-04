@@ -53,7 +53,7 @@ const Home = () => {
           allposts.reverse().map((post, ind)=>{
             var liked = false;
             //check post liked by user
-            post.likes.find(likedby=>likedby.userId==state._id)?liked=true:liked=false
+            post.likes.find(likedby=>likedby.userId===state._id)?liked=true:liked=false
             return <SinglePost name={post.postedBy.name} caption={post.caption} postImage={post.image} totalLikes={post.likes.length} key={post._id} liked={liked} postId={post._id} likes={post.likes} currentUser={state.name} comments={post.comments} postDate={post.createdAt} />
           }) 
           :'Server error... Try Again'

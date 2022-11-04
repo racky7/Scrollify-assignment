@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import "../../styles/Auth.css"
-import { useAuthContext } from "../../context/AuthContext"
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "../axios/axios.js";
 
@@ -9,7 +8,6 @@ const Signup = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errMsg, setError] = useState('')
-  const { state, dispatch } = useAuthContext()
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -63,14 +61,14 @@ const Signup = () => {
 
           <div className="d-grid mb-3">
             <button onClick={handleLogin} type="submit" className="btn btn-primary">
-              Submit
+              Sign up
             </button>
           </div>
           {errMsg && <p className="text-danger">
             {errMsg}
           </p>}
           <p className="forgot-password text-right">
-            Already have an account? <Link to="/login">Signup</Link>
+            Already have an account? <Link to="/login">Login</Link>
           </p>
 
         </form>

@@ -8,7 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errMsg, setError] = useState('')
-  const { state, dispatch } = useAuthContext()
+  const { dispatch } = useAuthContext()
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -56,15 +56,21 @@ const Login = () => {
 
           <div className="d-grid mb-3">
             <button onClick={handleLogin} type="submit" className="btn btn-primary">
-              Submit
+              Login
             </button>
           </div>
           {errMsg && <p className="text-danger">
             {errMsg}
           </p>}
           <p className="forgot-password text-right">
-            Don't have an account? <Link to="/signup">Login</Link>
+            Don't have an account? <Link to="/signup">Sign up</Link>
           </p>
+
+          <div>
+            <h6>Test Account - </h6>
+            <p>Email - test@gmail.com</p>
+            <p>Password - admin</p>
+          </div>
 
         </form>
       </div>
