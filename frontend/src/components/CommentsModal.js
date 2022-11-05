@@ -15,7 +15,7 @@ const CommentsModal = ({...props}) => {
       </Modal.Header>
       <Modal.Body>
         {props.comments.map((itr, ind)=>{
-            return <div><div style={{display:'flex'}}><p style={{fontWeight: 600}} key={ind}>{itr.name + ' - '}</p>{itr.text}</div>
+            return <div key={ind}><div style={{display:'flex'}}><p style={{fontWeight: 600}}>{itr.name + ' - '}</p>{itr.text}</div>
             <p style={{fontSize:10, marginTop:'-10px'}}>{ moment(itr.createdAt).fromNow()}</p>
             </div>
         })}

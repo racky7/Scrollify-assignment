@@ -28,7 +28,7 @@ const Home = () => {
       )
       .then(response => {
         console.log(response.data.posts)
-        setAllpost(response.data.posts)
+        setAllpost(response.data.posts.reverse())
         setLoading(false)
       })
       .catch(err => {
@@ -47,10 +47,10 @@ const Home = () => {
       </div>
 
       <div className='m-3'>
-        <CreatePost />
+        <CreatePost setAllpost={setAllpost}/>
         {!loading?
           allposts ? 
-          allposts.reverse().map((post, ind)=>{
+          allposts.map((post, ind)=>{
             var liked = false;
             //check post liked by user
             post.likes.find(likedby=>likedby.userId===state._id)?liked=true:liked=false

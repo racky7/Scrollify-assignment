@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import axios2 from "./axios/axios.js";
 
-const CreatePost = () => {
+const CreatePost = ({setAllpost}) => {
     const [image, setImage] = useState()
     const [caption, setCaption] = useState()
     const [finalImage, setFinalImage] = useState()
@@ -47,6 +47,7 @@ const CreatePost = () => {
                     )
                     .then(response => {
                         console.log(response.data.post)
+                        setAllpost(oldData => [response.data.post, ...oldData,])
                         setImage(null)
                         setCaption(null)
                     })
