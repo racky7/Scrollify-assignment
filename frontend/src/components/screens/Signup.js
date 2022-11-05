@@ -35,7 +35,7 @@ const Signup = () => {
             <input
               type="text"
               className="form-control"
-              placeholder="Enter email"
+              placeholder="Enter name"
               onChange={(e) => setName(e.target.value)}
             />
           </div>
